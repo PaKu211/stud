@@ -1,0 +1,128 @@
+project:
+  name: Microstock Automation Studio
+  slug: microstock-automation-studio
+  version: 1.0.0-planning
+  status: approved-for-implementation-planning
+  planning_date: '2026-11-08'
+  locale: id-ID
+  role_assistant: planner
+  role_next_agent: implementer
+  mission: 'Local-first, cloud-ready microstock asset preparation and distribution workflow'
+
+architecture:
+  deployment_mode: local-hosted-web
+  production_host: '127.0.0.1'
+  production_port: 8080
+  backend: Go
+  frontend: 'Svelte + TypeScript + Vite SPA'
+  database: SQLite
+  storage: local-filesystem
+  distribution_model: modular-monolith
+  optional_integrations:
+    - AIStudio2API
+    - official-openai-compatible-providers
+    - ExifTool
+    - FFmpeg
+    - adobe-sftp-eligible-accounts
+  future_targets:
+    - Render
+    - Appwrite
+    - containerized-worker
+    - object-storage
+
+scope:
+  must_have_mvp_a:
+    - project-management
+    - allowed-root-scan
+    - asset-catalog-thumbnails-hashes
+    - metadata-editor-and-revision-history
+    - ai-provenance-rights-and-releases
+    - adobe-rule-validation
+    - adobe-csv-and-manifest-export
+    - persistent-job-queue
+    - tests-and-security-controls
+  mvp_b:
+    - optional-ai-vision-metadata-drafts
+    - ai-provider-fallback
+    - advanced-image-qc
+    - optional-exiftool-metadata-embedding
+  mvp_c:
+    - adobe-sftp-when-authorized
+    - video-qc-and-processing
+    - distribution-status-and-manual-portal-evidence
+  v2:
+    - prompt-and-media-generation
+    - visual-workflow-builder
+    - agent-mcp-with-approval
+    - hosted-cloud-deployment
+
+invariants:
+  - never-modify-originals-without-confirmation
+  - never-send-source-media-to-external-service-without-opt-in
+  - uploaded-is-not-submitted
+  - submitted-is-not-approved
+  - no-public-adobe-stock-contributor-api
+  - block-generative-ai-submission-to-shutterstock
+  - no-captcha-or-antibot-bypass
+  - no-plaintext-secrets-in-database-frontend-or-logs
+  - core-must-work-without-ai-or-cloud
+
+references:
+  primary:
+    - url: 'https://github.com/kitleong1981/totag'
+      role: 'local asset and metadata reference'
+      strategy: behavior-reference-and-reimplement
+    - url: 'https://github.com/aRealGem/stockflow'
+      role: 'QC pipeline manifest and transfer reference'
+      strategy: contract-reference
+    - url: 'https://github.com/riiicil/rj-aio-metadata'
+      role: 'platform rules and metadata adapter reference'
+      strategy: rules-reference-not-dom-automation
+    - url: 'https://github.com/Mag1cFall/AIStudio2API'
+      role: 'optional AI gateway'
+      strategy: external-connector
+  secondary:
+    - 'https://github.com/UeberUeber/adobe-stock-generator'
+    - 'https://github.com/andsontan/xpiks'
+
+milestones:
+  - id: G0
+    name: audit-and-platform-proof
+  - id: G1
+    name: application-skeleton-and-persistence
+  - id: G2
+    name: catalog
+  - id: G3
+    name: metadata-review
+  - id: G4
+    name: adobe-csv-export-mvp-a
+  - id: G5
+    name: optional-ai-mvp-b
+  - id: G6
+    name: distribution-video-mvp-c
+
+acceptance:
+  required_batch_size: 20
+  source_files_immutable: true
+  core_offline: true
+  accepts_ai_as_optional: true
+  csv_profile: 'adobe-2026-06-initial-verify-before-release'
+  test_docs: docs/TEST_PLAN.md
+  release_gate: G4
+
+documentation:
+  handoff: HANDOFF_PROMPT.md
+  system: system.md
+  analysis: docs/00_CONVERSATION_ANALYSIS.md
+  product: docs/PRD.md
+  technical: docs/TRD.md
+  application_flow: docs/AFD.md
+  database: docs/DBD.md
+  backend: docs/BSD.md
+  api: specs/API_CONTRACT.md
+  security: docs/SECURITY_COMPLIANCE.md
+  tests: docs/TEST_PLAN.md
+  implementation: docs/IMPLEMENTATION_PLAN.md
+  project_tree: docs/PROJECT_STRUCTURE.md
+  research: docs/REPOSITORY_RESEARCH.md
+  decisions: docs/ADR.md
